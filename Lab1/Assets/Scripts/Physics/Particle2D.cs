@@ -7,6 +7,8 @@ public class Particle2D : MonoBehaviour
     // Step 1
     public Vector2 position, velocity, acceleration;
     public float rotation, angularVelocity, angularAcceleration;
+    public bool positionUpdateEuler, positionUpdateKinematic;
+    public bool rotationUpdateEuler, rotationUpdateKinematic;
 
     // Step 2
     void updatePositionEulerExplicit(float dt)
@@ -23,6 +25,7 @@ public class Particle2D : MonoBehaviour
 
     void updatePositionKinematic(float dt)
     {
+        // x(t+dt) = 
     }
 
     void updateRotationEulerExplicit(float dt)
@@ -43,8 +46,25 @@ public class Particle2D : MonoBehaviour
     void FixedUpdate()
     {
         // Step 3
-        updatePositionEulerExplicit(Time.fixedDeltaTime);
-        transform.position = position;
+        if (positionUpdateEuler)
+        {
+            updatePositionEulerExplicit(Time.fixedDeltaTime);
+            transform.position = position;
+        }
+        else
+        {
+            updatePositionKinematic(Time.fixedDeltaTime);
+            transform.position = position;
+        }
+
+        if (rotationUpdateEuler)
+        {
+            updateRotationEulerExplicit(Time.fixedDeltaTime);
+        }
+        else
+        {
+            updateRotationKinematic(Time.fixedDeltaTime);
+        }
 
         // Step 4
         acceleration.x = -Mathf.Sin(Time.time);
