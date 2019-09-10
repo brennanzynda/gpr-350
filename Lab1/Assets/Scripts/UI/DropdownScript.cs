@@ -28,6 +28,7 @@ public class DropdownScript : MonoBehaviour
             GameObject.Find("Cube").GetComponent<Particle2D>().rotationUpdateEuler = false;
             GameObject.Find("Cube").GetComponent<Particle2D>().positionUpdateKinematic = false;
             GameObject.Find("Cube").GetComponent<Particle2D>().rotationUpdateKinematic = false;
+            GameObject.Find("Cube").GetComponent<Particle2D>().ResetUnit();
         }
         else if (menuText.text == "KinematicPosition")
         {
@@ -36,6 +37,7 @@ public class DropdownScript : MonoBehaviour
             GameObject.Find("Cube").GetComponent<Particle2D>().rotationUpdateEuler = false;
             GameObject.Find("Cube").GetComponent<Particle2D>().positionUpdateKinematic = true;
             GameObject.Find("Cube").GetComponent<Particle2D>().rotationUpdateKinematic = false;
+            GameObject.Find("Cube").GetComponent<Particle2D>().ResetUnit();
         }
         else if (menuText.text == "EulerRotation")
         {
@@ -44,6 +46,7 @@ public class DropdownScript : MonoBehaviour
             GameObject.Find("Cube").GetComponent<Particle2D>().rotationUpdateEuler = true;
             GameObject.Find("Cube").GetComponent<Particle2D>().positionUpdateKinematic = false;
             GameObject.Find("Cube").GetComponent<Particle2D>().rotationUpdateKinematic = false;
+            GameObject.Find("Cube").GetComponent<Particle2D>().ResetUnit();
         }
         else if (menuText.text == "KinematicRotation")
         {
@@ -52,6 +55,7 @@ public class DropdownScript : MonoBehaviour
             GameObject.Find("Cube").GetComponent<Particle2D>().rotationUpdateEuler = false;
             GameObject.Find("Cube").GetComponent<Particle2D>().positionUpdateKinematic = false;
             GameObject.Find("Cube").GetComponent<Particle2D>().rotationUpdateKinematic = true;
+            GameObject.Find("Cube").GetComponent<Particle2D>().ResetUnit();
         }
     }
 }

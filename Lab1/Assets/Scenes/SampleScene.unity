@@ -160,7 +160,7 @@ MonoBehaviour:
   angularAcceleration: 0
   positionUpdateEuler: 1
   positionUpdateKinematic: 0
-  rotationUpdateEuler: 1
+  rotationUpdateEuler: 0
   rotationUpdateKinematic: 0
 --- !u!65 &153727305
 BoxCollider:

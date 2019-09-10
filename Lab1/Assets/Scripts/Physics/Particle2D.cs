@@ -26,22 +26,36 @@ public class Particle2D : MonoBehaviour
     void updatePositionKinematic(float dt)
     {
         // x(t+dt) = x(t) + v(t)dt + (a(t)dt^2)/2
-        position += velocity * dt + (acceleration * dt * dt)/2;
+        position += velocity * dt + (acceleration * dt * dt) / 2;
         velocity += acceleration * dt;
     }
 
     void updateRotationEulerExplicit(float dt)
     {
+        rotation += angularVelocity * dt;
+        angularVelocity += angularAcceleration * dt;
     }
 
     void updateRotationKinematic(float dt)
     {
+        rotation += angularVelocity * dt + (angularAcceleration * dt * dt) / 2;
+        angularVelocity += angularAcceleration * dt;
     }
 
     // Start is called before the first frame update
     void Start()
     {
         
+    }
+
+    public void ResetUnit()
+    {
+        transform.position = new Vector3(0, 0, 0);
+        transform.rotation = Quaternion.Euler(0, 0, 0);
+        angularAcceleration = 0;
+        acceleration = new Vector2(0, 0);
+        position = new Vector2(0, 0);
+        rotation = 0;
     }
 
     // Update is called once per frame
@@ -53,22 +67,25 @@ public class Particle2D : MonoBehaviour
             updatePositionEulerExplicit(Time.fixedDeltaTime);
             transform.position = position;
         }
-        else
+        else if(positionUpdateKinematic)
         {
             updatePositionKinematic(Time.fixedDeltaTime);
             transform.position = position;
         }
 
-        if (rotationUpdateEuler)
+        else if (rotationUpdateEuler)
         {
             updateRotationEulerExplicit(Time.fixedDeltaTime);
+            transform.rotation = Quaternion.Euler(0, 0, rotation);
         }
-        else
+        else if(rotationUpdateKinematic)
         {
             updateRotationKinematic(Time.fixedDeltaTime);
+            transform.rotation = Quaternion.Euler(0,0,rotation);
         }
 
         // Step 4
         acceleration.x = -Mathf.Sin(Time.time);
+        angularAcceleration += 2;
     }
 }
