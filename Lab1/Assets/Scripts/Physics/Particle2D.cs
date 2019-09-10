@@ -53,8 +53,10 @@ public class Particle2D : MonoBehaviour
         transform.position = new Vector3(0, 0, 0);
         transform.rotation = Quaternion.Euler(0, 0, 0);
         angularAcceleration = 0;
+        angularVelocity = 0;
         acceleration = new Vector2(0, 0);
         position = new Vector2(0, 0);
+        velocity = new Vector2(0, 0);
         rotation = 0;
     }
 
