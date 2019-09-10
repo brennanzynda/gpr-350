@@ -8,7 +8,7 @@ public class Particle2D : MonoBehaviour
     public Vector2 position, velocity, acceleration;
     public float rotation, angularVelocity, angularAcceleration;
     public bool positionUpdateEuler, positionUpdateKinematic;
-    public bool rotationUpdateEuler, rotationUpdateKinematic;
+    public bool rotationUpdateEuler, rotationUpdateKinematic ;
 
     // Step 2
     void updatePositionEulerExplicit(float dt)
@@ -25,7 +25,9 @@ public class Particle2D : MonoBehaviour
 
     void updatePositionKinematic(float dt)
     {
-        // x(t+dt) = 
+        // x(t+dt) = x(t) + v(t)dt + (a(t)dt^2)/2
+        position += velocity * dt + (acceleration * dt * dt)/2;
+        velocity += acceleration * dt;
     }
 
     void updateRotationEulerExplicit(float dt)
