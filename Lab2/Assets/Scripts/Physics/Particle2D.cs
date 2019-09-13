@@ -58,7 +58,7 @@ public class Particle2D : MonoBehaviour
     void updatePositionKinematic(float dt)
     {
         // x(t+dt) = x(t) + v(t)dt + (a(t)dt^2)/2
-        position += velocity * dt + (acceleration * dt * dt) / 2;
+        position += velocity * dt + (acceleration * dt * dt) * .5f;
         velocity += acceleration * dt;
     }
 
@@ -70,7 +70,7 @@ public class Particle2D : MonoBehaviour
 
     void updateRotationKinematic(float dt)
     {
-        rotation += angularVelocity * dt + (angularAcceleration * dt * dt) / 2;
+        rotation += angularVelocity * dt + (angularAcceleration * dt * dt) * .5f;
         angularVelocity += angularAcceleration * dt;
     }
 

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Lab2ForceGenerator
+public class ForceGenerator
 {
     // Lab 2 Step 3
     public static Vector2 GenerateForce_Gravity(float particleMass, float gravitationalConstant, Vector2 worldUp)
@@ -29,24 +29,37 @@ public class Lab2ForceGenerator
     Vector2 GenerateForce_friction_static(Vector2 f_normal, Vector2 f_opposing, float frictionCoefficient_static)
     {
         // f_friction_s = -f_opposing if less than max, else -coeff*f_normal (max amount is coeff*|f_normal|)
-        return new Vector2(0, 0);
+        float max = f_normal.magnitude * frictionCoefficient_static;
+        Vector2 f_friction_s = new Vector2(0,0);
+        if (f_opposing.magnitude < max)
+        {
+            f_friction_s = -f_opposing;
+        }
+        else
+        {
+            f_friction_s = -frictionCoefficient_static * f_normal;
+        }
+        return f_friction_s;
     }
     
     Vector2 GenerateForce_friction_kinetic(Vector2 f_normal, Vector2 particleVelocity, float frictionCoefficient_kinetic)
     {
         // f_friction_k = -coeff*|f_normal| * unit(vel)
-        return new Vector2(0, 0);
+        Vector2 f_friction_k = -frictionCoefficient_kinetic * f_normal.magnitude * particleVelocity;
+        return f_friction_k;
     }
-    
+
     Vector2 GenerateForce_drag(Vector2 particleVelocity, Vector2 fluidVelocity, float fluidDensity, float objectArea_crossSection, float objectDragCoefficient)
     {
         // f_drag = (p * u^2 * area * coeff)/2
-        Vector2 f_drag = (particleVelocity * fluidVelocity * fluidVelocity * objectArea_crossSection * objectDragCoefficient) / 2;
-        return new Vector2(0, 0);
+        Vector2 f_drag = (particleVelocity * fluidVelocity * fluidVelocity * objectArea_crossSection * objectDragCoefficient) * .5f;
+        return f_drag;
     }
     Vector2 GenerateForce_spring(Vector2 particlePosition, Vector2 anchorPosition, float springRestingLength, float springStiffnessCoefficient)
     {
         // f_spring = -coeff*(spring length - spring resting length)
-        return new Vector2(0, 0);
+        Vector2 springLength = (particlePosition - anchorPosition);
+        Vector2 f_spring = -springStiffnessCoefficient * (springLength.magnitude - springRestingLength) * springLength;
+        return f_spring;
     }
 }
