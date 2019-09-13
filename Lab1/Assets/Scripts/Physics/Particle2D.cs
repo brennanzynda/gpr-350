@@ -88,6 +88,6 @@ public class Particle2D : MonoBehaviour
 
         // Step 4
         acceleration.x = -Mathf.Sin(Time.time);
-        angularAcceleration += 2;
+        //angularVelocity += 2;
     }
 }
