@@ -15,8 +15,8 @@ public class Lab2ForceGenerator
     public static Vector2 GenerateForce_normal(Vector2 f_gravity, Vector2 surfaceNormal_unit)
     {
         // f_normal = proj(f_gravity, surfaceNormal_unit)
-        Vector2 f_normal = new Vector2(0, 0);
-        return new Vector2(0,0);
+        Vector2 f_normal = Vector3.Project(new Vector3(f_gravity.x, f_gravity.y, 0), new Vector3(surfaceNormal_unit.x, surfaceNormal_unit.y, 0));
+        return f_normal;
     }
     
     public static Vector2 GenerateForce_sliding(Vector2 f_gravity, Vector2 f_normal)
