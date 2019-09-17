@@ -9,8 +9,9 @@ public class Particle2D : MonoBehaviour
     //public float rotation, angularVelocity, angularAcceleration;
     //public bool positionUpdateEuler, positionUpdateKinematic;
     //public bool rotationUpdateEuler, rotationUpdateKinematic ;
-    private Vector2 acceleration;
-    private Vector2 velocity, position;
+    public Vector2 acceleration;
+    public Vector2 velocity;
+    private Vector2 position;
 
     // Lab 2 Step 1
     public float startingMass = 1.0f;
@@ -80,7 +81,6 @@ public class Particle2D : MonoBehaviour
     void Start()
     {
         // Setting the starting velocity to that of gravity
-        velocity = new Vector2(0f, -9.8f);
         position = new Vector2(this.transform.position.x, this.transform.position.y);
     }
 
@@ -129,7 +129,7 @@ public class Particle2D : MonoBehaviour
         //Vector2 f_gravity = mass * new Vector2(0.0f, -9.8f);
         //AddForce(f_gravity);
         //AddForce(ForceGenerator.GenerateForce_Gravity(mass, -9.8f, Vector2.up));
-        AddForce(ForceGenerator.GenerateForce_normal(ForceGenerator.GenerateForce_Gravity(mass, -9.8f, Vector2.up), -Vector2.up));
+        AddForce(ForceGenerator.GenerateForce_normal(ForceGenerator.GenerateForce_Gravity(mass, -9.8f, Vector2.up), new Vector2(3.0f, 3.0f)));
         //AddForce(ForceGenerator.GenerateForce_sliding(ForceGenerator.GenerateForce_Gravity(mass, -9.8f, Vector2.up), ForceGenerator.GenerateForce_normal(ForceGenerator.GenerateForce_Gravity(mass, -9.8f, Vector2.up), new Vector2(4f, 0f))));
         // Lab 1 Step 4
         //acceleration.x = -Mathf.Sin(Time.time);
