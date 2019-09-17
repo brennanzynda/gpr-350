@@ -5,10 +5,12 @@ using UnityEngine;
 public class Particle2D : MonoBehaviour
 {
     // Lab 1 Step 1
-    public Vector2 position, velocity, acceleration;
-    public float rotation, angularVelocity, angularAcceleration;
-    public bool positionUpdateEuler, positionUpdateKinematic;
-    public bool rotationUpdateEuler, rotationUpdateKinematic ;
+    //public Vector2 position, velocity, acceleration;
+    //public float rotation, angularVelocity, angularAcceleration;
+    //public bool positionUpdateEuler, positionUpdateKinematic;
+    //public bool rotationUpdateEuler, rotationUpdateKinematic ;
+    private Vector2 acceleration;
+    private Vector2 velocity, position;
 
     // Lab 2 Step 1
     public float startingMass = 1.0f;
@@ -55,7 +57,7 @@ public class Particle2D : MonoBehaviour
         velocity += acceleration * dt;
     }
 
-    void updatePositionKinematic(float dt)
+    /*void updatePositionKinematic(float dt)
     {
         // x(t+dt) = x(t) + v(t)dt + (a(t)dt^2)/2
         position += velocity * dt + (acceleration * dt * dt) * .5f;
@@ -72,15 +74,17 @@ public class Particle2D : MonoBehaviour
     {
         rotation += angularVelocity * dt + (angularAcceleration * dt * dt) * .5f;
         angularVelocity += angularAcceleration * dt;
-    }
+    }*/
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        // Setting the starting velocity to that of gravity
+        velocity = new Vector2(0f, -9.8f);
+        position = new Vector2(this.transform.position.x, this.transform.position.y);
     }
 
-    public void ResetUnit()
+    /*public void ResetUnit()
     {
         transform.position = new Vector3(0, 0, 0);
         transform.rotation = Quaternion.Euler(0, 0, 0);
@@ -90,13 +94,13 @@ public class Particle2D : MonoBehaviour
         position = new Vector2(0, 0);
         //velocity = new Vector2(0, 0);
         rotation = 0;
-    }
+    }*/
 
     // Update is called once per frame
     void FixedUpdate()
     {
         // Lab 1 Step 3
-        if (positionUpdateEuler)
+        /*if (positionUpdateEuler)
         {
             updatePositionEulerExplicit(Time.fixedDeltaTime);
             transform.position = position;
@@ -116,14 +120,16 @@ public class Particle2D : MonoBehaviour
         {
             updateRotationKinematic(Time.fixedDeltaTime);
             transform.rotation = Quaternion.Euler(0,0,rotation);
-        }
-
+        }*/
+        updatePositionEulerExplicit(Time.fixedDeltaTime);
+        transform.position = position;
         // Lab 2 Step 4
         UpdateAcceleration();
         // f_gravity: f = m * g; (g = -9.8)
         //Vector2 f_gravity = mass * new Vector2(0.0f, -9.8f);
         //AddForce(f_gravity);
         AddForce(ForceGenerator.GenerateForce_Gravity(mass, -9.8f, Vector2.up));
+        //AddForce(ForceGenerator.GenerateForce_normal(ForceGenerator.GenerateForce_Gravity(mass, -9.8f, Vector2.up), Vector2.down));
         // Lab 1 Step 4
         //acceleration.x = -Mathf.Sin(Time.time);
         //angularVelocity += 2;

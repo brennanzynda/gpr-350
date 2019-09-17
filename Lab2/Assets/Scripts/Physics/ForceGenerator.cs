@@ -52,7 +52,8 @@ public class ForceGenerator
     Vector2 GenerateForce_drag(Vector2 particleVelocity, Vector2 fluidVelocity, float fluidDensity, float objectArea_crossSection, float objectDragCoefficient)
     {
         // f_drag = (p * u^2 * area * coeff)/2
-        Vector2 f_drag = (particleVelocity * fluidVelocity * fluidVelocity * objectArea_crossSection * objectDragCoefficient) * .5f;
+        float drag = particleVelocity.magnitude * fluidVelocity.magnitude * fluidVelocity.magnitude * objectArea_crossSection * objectDragCoefficient * .5f;
+        Vector2 f_drag = drag * particleVelocity.normalized;
         return f_drag;
     }
     Vector2 GenerateForce_spring(Vector2 particlePosition, Vector2 anchorPosition, float springRestingLength, float springStiffnessCoefficient)

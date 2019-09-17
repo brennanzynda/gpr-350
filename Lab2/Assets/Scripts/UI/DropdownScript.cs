@@ -18,7 +18,8 @@ public class DropdownScript : MonoBehaviour
         
     }
 
-    public void ChangePhysics()
+    // Lab 1 Bonus
+    /*public void ChangePhysics()
     {
         //Debug.Log("Changing Physics Equations");
         if (menuText.text == "EulerPosition")
@@ -57,5 +58,5 @@ public class DropdownScript : MonoBehaviour
             GameObject.Find("Cube").GetComponent<Particle2D>().rotationUpdateKinematic = true;
             GameObject.Find("Cube").GetComponent<Particle2D>().ResetUnit();
         }
-    }
+    }*/
 }
