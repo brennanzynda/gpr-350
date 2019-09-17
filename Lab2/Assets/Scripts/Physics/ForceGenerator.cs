@@ -45,7 +45,7 @@ public class ForceGenerator
     Vector2 GenerateForce_friction_kinetic(Vector2 f_normal, Vector2 particleVelocity, float frictionCoefficient_kinetic)
     {
         // f_friction_k = -coeff*|f_normal| * unit(vel)
-        Vector2 f_friction_k = -frictionCoefficient_kinetic * f_normal.magnitude * particleVelocity;
+        Vector2 f_friction_k = -frictionCoefficient_kinetic * f_normal.magnitude * particleVelocity.normalized;
         return f_friction_k;
     }
 
@@ -60,7 +60,7 @@ public class ForceGenerator
     {
         // f_spring = -coeff*(spring length - spring resting length)
         Vector2 springLength = (particlePosition - anchorPosition);
-        Vector2 f_spring = -springStiffnessCoefficient * (springLength.magnitude - springRestingLength) * springLength;
+        Vector2 f_spring = -springStiffnessCoefficient * (springLength.magnitude - springRestingLength) * springLength.normalized;
         return f_spring;
     }
 }
