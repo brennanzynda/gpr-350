@@ -129,6 +129,7 @@ public class Particle2D : MonoBehaviour
         //Vector2 f_gravity = mass * new Vector2(0.0f, -9.8f);
         //AddForce(f_gravity);
         AddForce(ForceGenerator.GenerateForce_Gravity(mass, -9.8f, Vector2.up));
+        AddForce(ForceGenerator.GenerateForce_sliding(ForceGenerator.GenerateForce_Gravity(mass, -9.8f, Vector2.up), ForceGenerator.GenerateForce_normal(ForceGenerator.GenerateForce_Gravity(mass, -9.8f, Vector2.up), new Vector2(0f, 0f))));
         //AddForce(ForceGenerator.GenerateForce_normal(ForceGenerator.GenerateForce_Gravity(mass, -9.8f, Vector2.up), Vector2.down));
         // Lab 1 Step 4
         //acceleration.x = -Mathf.Sin(Time.time);
