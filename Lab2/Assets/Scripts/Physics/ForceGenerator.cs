@@ -15,7 +15,7 @@ public class ForceGenerator
     public static Vector2 GenerateForce_normal(Vector2 f_gravity, Vector2 surfaceNormal_unit)
     {
         // f_normal = proj(f_gravity, surfaceNormal_unit)
-        Vector2 f_normal = Vector3.Project(new Vector3(f_gravity.x, f_gravity.y, 0), new Vector3(surfaceNormal_unit.x, surfaceNormal_unit.y, 0));
+        Vector2 f_normal = Vector3.Project(-new Vector3(f_gravity.x, f_gravity.y, 0), new Vector3(surfaceNormal_unit.x, surfaceNormal_unit.y, 0));
         return f_normal;
     }
     
@@ -52,15 +52,16 @@ public class ForceGenerator
     public static Vector2 GenerateForce_drag(Vector2 particleVelocity, Vector2 fluidVelocity, float fluidDensity, float objectArea_crossSection, float objectDragCoefficient)
     {
         // f_drag = (p * u^2 * area * coeff)/2
-        float drag = particleVelocity.magnitude * fluidVelocity.magnitude * fluidVelocity.magnitude * objectArea_crossSection * objectDragCoefficient * .5f;
+        float drag = fluidDensity * fluidVelocity.magnitude * fluidVelocity.magnitude * objectArea_crossSection * objectDragCoefficient * .5f;
         Vector2 f_drag = drag * particleVelocity.normalized;
         return f_drag;
     }
     public static Vector2 GenerateForce_spring(Vector2 particlePosition, Vector2 anchorPosition, float springRestingLength, float springStiffnessCoefficient)
     {
         // f_spring = -coeff*(spring length - spring resting length)
-        Vector2 springLength = (particlePosition - anchorPosition);
-        Vector2 f_spring = -springStiffnessCoefficient * (springLength.magnitude - springRestingLength) * springLength.normalized;
+        Vector2 displacement = (particlePosition - anchorPosition);
+        float springLength = displacement.magnitude;
+        Vector2 f_spring = springStiffnessCoefficient * (springRestingLength - springLength) * displacement/springLength;
         return f_spring;
     }
 }
